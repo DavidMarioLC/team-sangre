@@ -9,6 +9,7 @@ const zalandoSans = Zalando_Sans_Expanded({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://team-sangre.vercel.app/"),
   title: "Team Sangre — ¿Puedes donar?",
   description:
     "Descubre si tú también puedes ser Team Sangre respondiendo este cuestionario.",
