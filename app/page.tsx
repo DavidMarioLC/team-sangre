@@ -49,7 +49,7 @@ export default function Home() {
           <Hero />
 
           {/* Changing content area managed by Stepper */}
-          <div className="flex-1 flex flex-col min-h-[700px] items-center justify-center">
+          <div className="flex-1 flex flex-col min-h-[400px] md:min-h-[700px] items-center justify-center">
             <Stepper />
           </div>
         </main>
