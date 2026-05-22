@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
-import { dataStepSchema, type DataStepValues } from "@/lib/schemas";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { type DataStepValues, dataStepSchema } from "@/lib/schemas";
 import { sendEmail } from "@/lib/send-email";
 
 interface DataStepProps {
@@ -41,7 +41,7 @@ export default function DataStep({ onDone }: DataStepProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="flex flex-col gap-4 max-w-sm"
+      className="flex flex-col gap-4 max-w-sm "
     >
       {/* Heading */}
       <p className="text-white text-sm md:text-base leading-relaxed">
@@ -55,7 +55,7 @@ export default function DataStep({ onDone }: DataStepProps) {
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         {/* Nombre + Apellido */}
-        <div className="flex gap-3">
+        <div className="flex flex-col md:flex-row gap-3">
           <div className="flex-1 flex flex-col gap-1">
             <input
               {...register("nombre")}

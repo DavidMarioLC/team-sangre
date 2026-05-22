@@ -10,11 +10,17 @@ export default function ResultStep() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -24 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
-      className="flex items-center gap-3 flex-wrap"
+      className="flex flex-col md:flex-row items-center gap-3 flex-wrap"
     >
       <p className="text-white text-sm md:text-base">Felicidades, puedes ser</p>
 
-     <Image src="/images/team-sangre-logo.png" alt="Team Sangre" width={100} height={100} style={{ height: "auto" }} />
+      <Image
+        src="/images/team-sangre-logo.png"
+        alt="Team Sangre"
+        width={100}
+        height={100}
+        style={{ height: "auto" }}
+      />
     </motion.div>
   );
 }

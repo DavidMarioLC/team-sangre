@@ -44,7 +44,7 @@ export default function Stepper() {
   const { currentStep } = state;
 
   return (
-    <div className="">
+    <div className="px-4">
       <AnimatePresence mode="wait">
         {currentStep === 0 && (
           <motion.div
