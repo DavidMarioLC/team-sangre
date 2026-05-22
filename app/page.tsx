@@ -12,14 +12,14 @@ export default function Home() {
         src="/images/globulo01.png"
         width={30}
         height={30}
-        className="w-100 absolute left-[22%] top-[5%] blur-sm"
+        className="w-100 absolute left-[22%] top-[5%] blur-lg"
       />
       <Image
         alt="globulo rojo"
         src="/images/globulo02.png"
         width={30}
         height={30}
-        className="w-100 absolute right-[15%] top-[30%] blur-sm"
+        className="w-100 absolute right-[15%] top-[30%] blur-lg"
       />
 
       <Image
@@ -27,7 +27,7 @@ export default function Home() {
         src="/images/globulo03.png"
         width={30}
         height={30}
-        className="w-150 absolute left-[0%] bottom-0 blur-sm"
+        className="w-150 absolute left-[0%] bottom-0 blur-lg"
       />
       {/* Background with parallax */}
       <div
