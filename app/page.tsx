@@ -6,7 +6,7 @@ import Stepper from "@/components/Stepper";
 
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Image
         alt="globulo rojo"
         src="/images/globulo01.png"
