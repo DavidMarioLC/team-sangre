@@ -1,0 +1,20 @@
+"use client";
+
+import { motion } from "motion/react";
+import Image from "next/image";
+
+export default function ResultStep() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -24 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="flex items-center gap-3 flex-wrap"
+    >
+      <p className="text-white text-sm md:text-base">Felicidades, puedes ser</p>
+
+     <Image src="/images/team-sangre-logo.png" alt="Team Sangre" width={100} height={100} style={{ height: "auto" }} />
+    </motion.div>
+  );
+}

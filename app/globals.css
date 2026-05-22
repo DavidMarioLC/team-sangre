@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "ThePhiladelphiaStory";
+  src: url("/fonts/ThePhiladelphiaStory.woff2") format("woff2");
+  font-display: swap;
+}
+
+@theme inline {
+  --color-primary: #df0000;
+  --color-bg: #000000;
+  --font-philly: "ThePhiladelphiaStory", cursive;
+  --font-sans: var(--font-zalando), sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
