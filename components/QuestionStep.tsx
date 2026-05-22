@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "motion/react";
+import { useState } from "react";
 import type { Question } from "@/lib/questions";
 
 interface QuestionStepProps {
@@ -36,7 +36,9 @@ function renderHighlighted(text: string, highlight: string[]) {
     const rest = phrase.slice(1);
     parts.push(
       <strong key={key++} className="font-bold">
-        <span style={{ fontFamily: "var(--font-philly)" }}>{first}</span>
+        <span className="" style={{ fontFamily: "var(--font-philly)" }}>
+          {first}{" "}
+        </span>
         {rest}
       </strong>,
     );
@@ -96,9 +98,7 @@ export default function QuestionStep({
           >
             <span
               className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
-                selected === opt
-                  ? "border-white"
-                  : "border-white/50"
+                selected === opt ? "border-white" : "border-white/50"
               }`}
             >
               {selected === opt && (

@@ -8,12 +8,12 @@ export const questions: Question[] = [
   {
     id: 1,
     text: "Para ser Team Sangre lo ideal es tener entre 18 y 65 años, para que puedas disfrutarlo como corresponde. ¿Tienes esa edad?",
-    highlight: ["Team Sangre", "18 y 65 años"],
+    highlight: ["Team Sangre"],
   },
   {
     id: 2,
-    text: "¿Has tenido más de una pareja en el ámbito que tú ya sabes en los últimos 6 meses?",
-    highlight: ["el ámbito que tú ya sabes"],
+    text: "¿Has tenido más de una pareja en El ámbito que tú ya sabes en los últimos 6 meses?",
+    highlight: [""],
   },
   {
     id: 3,
@@ -23,11 +23,11 @@ export const questions: Question[] = [
   {
     id: 4,
     text: "La cama también es para dormir… ¿sueles dormir al menos 5 horas?",
-    highlight: ["también es para dormir", "al menos 5 horas"],
+    highlight: ["t ambién es para dormir"],
   },
   {
     id: 5,
     text: "A este team se entra sin dopaje. ¿Te andas metiendo cositas por la vena que no te haya recetado un Médico?",
-    highlight: ["sin dopaje", "metiendo cositas", "no te haya recetado un Médico"],
+    highlight: [],
   },
 ];
