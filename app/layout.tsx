@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={zalandoSans.variable}>
-      <body>{children}</body>
+      <body className="">{children}</body>
     </html>
   );
 }

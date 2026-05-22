@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <div className="relative pt-6 pb-10 md:pt-20 md:pb-20 text-center">
+    <div className="relative pt-6 pb-10  md:pb-20 md:pt-40 text-center">
       {/* Title */}
       <h1 className="text-white leading-tight mb-4 text-3xl md:text-4xl lg:text-6xl">
         <span
