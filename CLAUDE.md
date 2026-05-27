@@ -19,6 +19,7 @@ Construir una landing page de campaña para captar donantes de sangre. El usuari
 | Animaciones | Motion  |
 | Validación | React Hook Form + Zod |
 | Envío de correo | Resend |
+| Base de datos | Supabase (Postgres) |
 | Deploy | Vercel |
 
 ---
@@ -45,6 +46,7 @@ lib/
   questions.ts              # Array con el contenido de las 5 preguntas
   schemas.ts                # Schemas Zod para validación
   send-email.ts             # Función cliente que llama a /api/send
+  supabase.ts               # Cliente Supabase singleton
 public/
   fonts/
     ThePhiladelphiaStory.woff2
@@ -148,7 +150,7 @@ export interface Question {
   ```
 - Renderiza `QuestionStep`, `DataStep` o `ResultStep` según `currentStep`
 - Envuelve el contenido con `<AnimatePresence mode="wait">` de Motion para las transiciones
-- Función `isEligible()` que evalúa si todas las respuestas coinciden con `eligibleAnswer` de cada pregunta y pasa el resultado a `ResultStep`
+- Función `isEligible()` que evalúa si todas las respuestas coinciden con `eligibleAnswer` de cada pregunta y pasa el resultado a `ResultStep` y a `DataStep`
 
 ---
 
@@ -202,7 +204,8 @@ export type DataStepValues = z.infer<typeof dataStepSchema>
 - Campos: Nombre + Apellido en una fila, Correo en fila completa
 - Usar `useForm` de React Hook Form con `zodResolver(dataStepSchema)`
 - Botón `"Enviar"` deshabilitado si el form tiene errores o campos vacíos
-- Al hacer submit válido: llamar a `sendEmail(data)` de `lib/send-email.ts`, luego avanzar al resultado
+- Recibe prop `eligible: boolean` desde `Stepper`
+- Al hacer submit válido: llamar a `sendEmail({ ...data, eligible })` de `lib/send-email.ts`, luego avanzar al resultado
 
 ---
 
@@ -217,14 +220,22 @@ export type DataStepValues = z.infer<typeof dataStepSchema>
 
 ## API Route — `app/api/send/route.ts`
 
+Recibe `nombre`, `apellido`, `correo` y `eligible`. Si `eligible === true`, inserta el registro en la tabla `donantes` de Supabase antes de enviar el correo.
+
 ```typescript
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: Request) {
-  const { nombre, apellido, correo } = await req.json()
+  const { nombre, apellido, correo, eligible } = await req.json()
+
+  if (eligible) {
+    const { error } = await supabase.from('donantes').insert({ nombre, apellido, correo })
+    if (error) console.error('Supabase insert error:', error.message)
+  }
 
   await resend.emails.send({
     from: 'Team Sangre <noreply@soyteamsangre.com>',
@@ -245,6 +256,24 @@ Variables de entorno requeridas en `.env.local`:
 ```
 RESEND_API_KEY=re_xxxxxxxxxxxx
 CONTACT_EMAIL=correo-destino@ejemplo.com
+SUPABASE_URL=https://<project>.supabase.co
+SUPABASE_ANON_KEY=eyJ...
+```
+
+### Tabla `donantes` en Supabase
+
+```sql
+create table donantes (
+  id uuid default gen_random_uuid() primary key,
+  nombre text not null,
+  apellido text not null,
+  correo text not null,
+  created_at timestamptz default now()
+);
+
+alter table donantes enable row level security;
+create policy "allow insert for anon" on donantes for insert to anon with check (true);
+grant insert on table donantes to anon;
 ```
 
 ---
@@ -256,6 +285,7 @@ export async function sendEmail(data: {
   nombre: string
   apellido: string
   correo: string
+  eligible: boolean
 }) {
   const res = await fetch('/api/send', {
     method: 'POST',
@@ -337,6 +367,7 @@ Incluir en `layout.tsx`:
 
 - [ ] Reemplazar `CONTACT_EMAIL` en variables de entorno con el correo definitivo del cliente
 - [ ] Verificar dominio en Resend para enviar desde `noreply@soyteamsangre.com`
+- [ ] Configurar `SUPABASE_URL` y `SUPABASE_ANON_KEY` en variables de entorno de Vercel
 - [ ] Proveer imagen OG (`/public/images/og.png`) en 1200×630px
 - [ ] Confirmar dominio final (soyteamsangre.com u otro)
 - [ ] Probar flujo completo en mobile (Chrome Android + Safari iOS)
