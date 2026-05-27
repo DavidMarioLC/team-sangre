@@ -2,6 +2,7 @@ export async function sendEmail(data: {
   nombre: string;
   apellido: string;
   correo: string;
+  eligible: boolean;
 }) {
   const res = await fetch("/api/send", {
     method: "POST",

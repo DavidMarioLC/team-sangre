@@ -9,9 +9,10 @@ import { sendEmail } from "@/lib/send-email";
 
 interface DataStepProps {
   onDone: (data: DataStepValues) => void;
+  eligible: boolean;
 }
 
-export default function DataStep({ onDone }: DataStepProps) {
+export default function DataStep({ onDone, eligible }: DataStepProps) {
   const [sending, setSending] = useState(false);
 
   const {
@@ -26,7 +27,7 @@ export default function DataStep({ onDone }: DataStepProps) {
   async function onSubmit(data: DataStepValues) {
     setSending(true);
     try {
-      await sendEmail(data);
+      await sendEmail({ ...data, eligible });
     } catch {
       // proceed to result even if email fails
     } finally {

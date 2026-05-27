@@ -84,7 +84,7 @@ export default function Stepper() {
           />
         )}
 
-        {currentStep === 6 && <DataStep key="data" onDone={handleData} />}
+        {currentStep === 6 && <DataStep key="data" onDone={handleData} eligible={isEligible()} />}
 
         {currentStep === 7 && <ResultStep key="result" eligible={isEligible()} />}
       </AnimatePresence>
