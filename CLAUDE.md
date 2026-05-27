@@ -86,7 +86,7 @@ Hero
                                      └─ Resultado
 ```
 
-**No hay lógica de descarte.** Todas las combinaciones de respuestas llevan al resultado positivo.
+Las respuestas se evalúan al final contra los criterios de elegibilidad del MINSAL Chile. El resultado puede ser positivo o negativo según las respuestas acumuladas.
 
 ---
 
@@ -115,40 +115,23 @@ Contenido:
 
 ### `lib/questions.ts`
 
+Cada pregunta tiene un campo `eligibleAnswer` que indica la respuesta correcta según los criterios del MINSAL Chile. La elegibilidad se evalúa en `Stepper.tsx` comparando cada respuesta del usuario contra este campo.
+
+| # | Pregunta | `eligibleAnswer` | Criterio |
+|---|---|---|---|
+| 1 | ¿Tienes entre 18 y 65 años? | `"si"` | Rango de edad válido |
+| 2 | ¿Más de una pareja sexual en los últimos 6 meses? | `"no"` | Factor de riesgo HIV/ETS |
+| 3 | ¿Piercings o tatuajes en los últimos 6 meses? | `"no"` | Riesgo de transmisión por sangre |
+| 4 | ¿Duermes al menos 5 horas? | `"si"` | Requisito de salud mínima |
+| 5 | ¿Drogas por la vena sin receta médica? | `"no"` | Exclusión permanente |
+
 ```typescript
 export interface Question {
   id: number
-  text: string        // texto completo de la pregunta
-  highlight: string[] // palabras que van en negrita
+  text: string
+  highlight: string[]
+  eligibleAnswer: 'si' | 'no'
 }
-
-export const questions: Question[] = [
-  {
-    id: 1,
-    text: "Para ser Team Sangre lo ideal es tener entre 18 y 65 años, para que puedas disfrutarlo como corresponde. ¿Tienes esa edad?",
-    highlight: ["Team Sangre", "18 y 65 años"]
-  },
-  {
-    id: 2,
-    text: "¿Has tenido más de una pareja en el ámbito que tú ya sabes en los últimos 6 meses?",
-    highlight: ["el ámbito que tú ya sabes"]
-  },
-  {
-    id: 3,
-    text: "¿Cómo andas de perforaciones? Nos referimos a Piercings o tatuajes… ¿te has hecho alguno en los últimos 6 meses?",
-    highlight: ["Piercings o tatuajes"]
-  },
-  {
-    id: 4,
-    text: "La cama también es para dormir… ¿sueles dormir al menos 5 horas?",
-    highlight: ["también es para dormir", "al menos 5 horas"]
-  },
-  {
-    id: 5,
-    text: "A este team se entra sin dopaje. ¿Te andas metiendo cositas por la vena que no te haya recetado un Médico?",
-    highlight: ["sin dopaje", "metiendo cositas", "no te haya recetado un Médico"]
-  }
-]
 ```
 
 ---
@@ -165,6 +148,7 @@ export const questions: Question[] = [
   ```
 - Renderiza `QuestionStep`, `DataStep` o `ResultStep` según `currentStep`
 - Envuelve el contenido con `<AnimatePresence mode="wait">` de Motion para las transiciones
+- Función `isEligible()` que evalúa si todas las respuestas coinciden con `eligibleAnswer` de cada pregunta y pasa el resultado a `ResultStep`
 
 ---
 
@@ -223,7 +207,9 @@ export type DataStepValues = z.infer<typeof dataStepSchema>
 ---
 
 ### `ResultStep.tsx`
-- Texto: `"Felicidades, puedes ser"` + logo Team Sangre inline
+- Recibe prop `eligible: boolean` desde `Stepper`
+- Si `eligible = true`: muestra `"Felicidades, puedes ser"` + logo Team Sangre inline
+- Si `eligible = false`: muestra `"Lo sentimos, no puedes ser Team Sangre"`
 - Animación de entrada igual que `QuestionStep`
 - Sin botones ni redirección
 
