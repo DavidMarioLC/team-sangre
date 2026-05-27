@@ -41,6 +41,10 @@ export default function Stepper() {
     setState((s) => ({ ...s, userData: data, currentStep: 7 }));
   }
 
+  function isEligible(): boolean {
+    return questions.every((q) => state.answers[q.id] === q.eligibleAnswer);
+  }
+
   const { currentStep } = state;
 
   return (
@@ -82,7 +86,7 @@ export default function Stepper() {
 
         {currentStep === 6 && <DataStep key="data" onDone={handleData} />}
 
-        {currentStep === 7 && <ResultStep key="result" />}
+        {currentStep === 7 && <ResultStep key="result" eligible={isEligible()} />}
       </AnimatePresence>
     </div>
   );
