@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { type DataStepValues, dataStepSchema } from "@/lib/schemas";
-import { sendEmail } from "@/lib/send-email";
 
 interface DataStepProps {
   onDone: (data: DataStepValues) => void;
@@ -27,9 +26,13 @@ export default function DataStep({ onDone, eligible }: DataStepProps) {
   async function onSubmit(data: DataStepValues) {
     setSending(true);
     try {
-      await sendEmail({ ...data, eligible });
+      await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, eligible }),
+      });
     } catch {
-      // proceed to result even if email fails
+      // proceed to result even if request fails
     } finally {
       setSending(false);
       onDone(data);
