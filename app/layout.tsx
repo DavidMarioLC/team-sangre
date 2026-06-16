@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Zalando_Sans_Expanded } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const zalandoSans = Zalando_Sans_Expanded({
   subsets: ["latin"],
@@ -28,7 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={zalandoSans.variable}>
-      <body className="">{children}</body>
+      <body className="">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
