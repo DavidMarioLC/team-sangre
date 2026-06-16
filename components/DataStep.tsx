@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { sendGAEvent } from "@next/third-parties/google";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -30,6 +31,11 @@ export default function DataStep({ onDone, eligible }: DataStepProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...data, eligible }),
+      });
+
+      sendGAEvent("event", "form_submit", {
+        category: "team_sangre",
+        label: "cuestionario_completado",
       });
     } catch {
       // proceed to result even if request fails
