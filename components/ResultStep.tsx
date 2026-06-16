@@ -32,7 +32,7 @@ export default function ResultStep({ eligible }: ResultStepProps) {
             Descubre cómo{" "}
             <a
               target="_blank"
-              href="https://fmdshcczcfkshfhihvjf.supabase.co/storage/v1/object/public/team-sangre/team-sangre.pdf"
+              href="https://wdoobjyxglipuljfcusq.supabase.co/storage/v1/object/public/media/team-sangre.pdf"
               rel="noopener"
               className="underline underline-offset-4"
             >
@@ -48,7 +48,7 @@ export default function ResultStep({ eligible }: ResultStepProps) {
             Descubre cómo{" "}
             <a
               target="_blank"
-              href="https://fmdshcczcfkshfhihvjf.supabase.co/storage/v1/object/public/team-sangre/team-sangre.pdf"
+              href="https://wdoobjyxglipuljfcusq.supabase.co/storage/v1/object/public/media/team-sangre.pdf"
               rel="noopener"
               className="underline underline-offset-4"
             >

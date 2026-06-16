@@ -47,9 +47,31 @@ export default function Home() {
         <main className="flex-1 flex flex-col min-h-0 overflow-y-auto">
           {/* Always-visible hero title + decoratives */}
           <Hero />
+          {/* video */}
+          <div className="flex flex-col items-center justify-center px-4 mt-10">
+            <div className="w-full max-w-md overflow-hidden rounded-2xl shadow-xl border border-gray-100/50">
+              <video
+                muted
+                width="1920"
+                height="1080"
+                controls
+                preload="metadata"
+                poster="/videos/miniatura.jpg" // Altamente recomendado para el LCP
+                className="w-full h-full object-cover aspect-video"
+                loop
+                autoPlay
+              >
+                <source
+                  src="https://wdoobjyxglipuljfcusq.supabase.co/storage/v1/object/public/media/develacion-team-sangre.mp4"
+                  type="video/mp4"
+                />
+                Tu navegador no soporta el elemento de video.
+              </video>
+            </div>
+          </div>
 
           {/* Changing content area managed by Stepper */}
-          <div className="flex-1 flex flex-col min-h-[320px] md:min-h-[700px] items-center justify-center">
+          <div className="flex-1 flex flex-col min-h-[320px] md:min-h-[500px] items-center justify-center">
             <Stepper />
           </div>
         </main>
