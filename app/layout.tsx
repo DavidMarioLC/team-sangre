@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Zalando_Sans_Expanded } from "next/font/google";
 import "./globals.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 
 const zalandoSans = Zalando_Sans_Expanded({
@@ -30,11 +30,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={zalandoSans.variable}>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <body className="">
         {children}
         <Analytics />
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+      {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} /> */}
     </html>
   );
 }
