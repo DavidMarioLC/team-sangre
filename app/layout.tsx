@@ -31,11 +31,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={zalandoSans.variable}>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
-      <body className="">
+      <body>
         {children}
         <Analytics />
       </body>
-      {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} /> */}
     </html>
   );
 }
